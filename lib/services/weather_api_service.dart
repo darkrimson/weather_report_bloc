@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:weather_report_bloc/exceptions/weather_exception.dart';
 import 'package:weather_report_bloc/models/weather.dart';
-import 'package:weather_report_bloc/services/dio_error_handler.dart';
+import 'package:weather_report_bloc/exceptions/dio_error_handler.dart';
 
 class WeatherApiService {
   final _dio = Dio();
@@ -16,10 +17,10 @@ class WeatherApiService {
       if (response.statusCode == 200) {
         return Weather.fromJson(response.data);
       } else {
-        throw Exception('Failed to load weather');
+        throw WeatherException('Failed to load weather');
       }
     } on DioException catch (e) {
-      throw Exception(DioErrorHandler.handleError(e));
+      throw WeatherException(DioErrorHandler.handleError(e));
     }
   }
 }
