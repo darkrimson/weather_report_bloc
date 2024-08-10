@@ -14,7 +14,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherBloc(WeatherRepository()),
+      create: (context) =>
+          WeatherBloc(WeatherRepository())..add(GetWeatherByLocationEvent()),
       child: MaterialApp(
         home: WeatherPage(),
       ),

@@ -12,8 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  geolocator: ^8.2.1
+  geocoding: ^2.1.1
   json_annotation: ^4.9.0
-  location: ^7.0.0
 
 dev_dependencies:
   flutter_test:
