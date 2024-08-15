@@ -5,6 +5,7 @@ class DioClient {
     Dio dio = Dio(BaseOptions(
       baseUrl: 'http://api.weatherapi.com/v1/',
       queryParameters: {
+        'days': 3,
         'key': 'a3d7069fc3c4407f912120532231012',
       },
       connectTimeout: const Duration(milliseconds: 5000),

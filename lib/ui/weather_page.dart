@@ -40,26 +40,26 @@ class WeatherPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    state.weather.cityName,
+                    state.weather.location.name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
                   Text(
-                    '${state.weather.temperature.round()}°',
+                    '${state.weather.current.tempC.round()}°',
                     style: const TextStyle(fontSize: 150, height: 1.1),
                   ),
                   Row(
                     children: [
                       Text(
-                        '${state.weather.mainCondition} ',
+                        '${state.weather.current.condition} ',
                         style: const TextStyle(fontSize: 18),
                       ),
                       Text(
-                        '${state.weather.maxTemp.round()}° / ${state.weather.minTemp.round()}°',
+                        '${state.weather.forecast.forecastDay[0].day.maxTempC.round()}° / ${state.weather.forecast.forecastDay[0].day.minTempC.round()}°',
                         style: const TextStyle(fontSize: 18),
-                      )
+                      ),
                     ],
                   ),
                   const SizedBox(height: 50),
@@ -90,7 +90,7 @@ class WeatherPage extends StatelessWidget {
                               const Expanded(
                                   child: Icon(Icons.calendar_today_outlined)),
                               Text(
-                                  '${state.weather.maxTemp.round()}° / ${state.weather.minTemp.round()}°',
+                                  '${state.weather.forecast.forecastDay[0].day.maxTempC.round()}° / ${state.weather.forecast.forecastDay[0].day.minTempC.round()}°',
                                   style: const TextStyle(fontSize: 18))
                             ],
                           ),

@@ -29,6 +29,7 @@ class WeatherApiService {
       final response = await _dio.get('forecast.json', queryParameters: {
         'q': city,
       });
+      print(response.statusCode);
       if (response.statusCode == 200) {
         return Weather.fromJson(response.data);
       } else {

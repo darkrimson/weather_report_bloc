@@ -1,33 +1,20 @@
-import 'package:weather_report_bloc/models/hour.dart';
+import 'package:weather_report_bloc/models/current.dart';
+import 'package:weather_report_bloc/models/forecast.dart';
+import 'package:weather_report_bloc/models/location.dart';
 
 class Weather {
-  final String cityName;
-  final double temperature;
-  final String mainCondition;
-  final double maxTemp;
-  final double minTemp;
-  final List<Hour> hours;
+  final Location location;
+  final Current current;
+  final Forecast forecast;
 
-  Weather({
-    required this.maxTemp,
-    required this.minTemp,
-    required this.cityName,
-    required this.mainCondition,
-    required this.temperature,
-    required this.hours,
-  });
+  Weather(
+      {required this.location, required this.current, required this.forecast});
 
   factory Weather.fromJson(Map<String, dynamic> json) {
-    List<Hour> hours = (json['forecast']['forecastday'][0]['hour'] as List)
-        .map((i) => Hour.fromJson(i))
-        .toList();
     return Weather(
-      cityName: json['location']['name'],
-      mainCondition: json['current']['condition']['text'],
-      temperature: json['current']['temp_c'],
-      maxTemp: json['forecast']['forecastday'][0]['day']['maxtemp_c'],
-      minTemp: json['forecast']['forecastday'][0]['day']['mintemp_c'],
-      hours: hours,
+      location: Location.fromJson(json['location']),
+      current: Current.fromJson(json['current']),
+      forecast: Forecast.fromJson(json['forecast']),
     );
   }
 }

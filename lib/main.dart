@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           WeatherBloc(WeatherRepository())..add(GetWeatherByLocationEvent()),
-      child: MaterialApp(
+      child: const MaterialApp(
         home: WeatherPage(),
       ),
     );
