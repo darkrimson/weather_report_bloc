@@ -4,58 +4,119 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/weather_bloc.dart';
 
 class WeatherPage extends StatelessWidget {
-  final _cityController = TextEditingController();
-
-  WeatherPage({super.key});
+  const WeatherPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Weather App'),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _cityController,
-              decoration: const InputDecoration(
-                labelText: 'City Name',
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
-          ElevatedButton(
+        title: const Text('Погода'),
+        backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
             onPressed: () {
-              final cityName = _cityController.text;
-              if (cityName.isNotEmpty) {
-                context.read<WeatherBloc>().add(GetWeatherEvent(cityName));
-              }
+              context.read<WeatherBloc>().add(GetWeatherByLocationEvent());
             },
-            child: const Text('Get Weather'),
           ),
-          BlocBuilder<WeatherBloc, WeatherState>(
-            builder: (context, state) {
-              if (state is WeatherInitial) {
-                return const Text('Enter a city name');
-              } else if (state is WeatherLoading) {
-                return const CircularProgressIndicator();
-              } else if (state is WeatherLoaded) {
-                return Column(
-                  children: [
-                    Text('City: ${state.weather.cityName}'),
-                    Text('Temperature: ${state.weather.temperature}°C'),
-                    Text('Description: ${state.weather.mainCondition}'),
-                  ],
-                );
-              } else if (state is WeatherError) {
-                return Text(state.message);
-              }
-              return Container();
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings');
             },
           ),
         ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: BlocBuilder<WeatherBloc, WeatherState>(
+          builder: (context, state) {
+            if (state is WeatherInitial) {
+              return const Text('Enter a city name');
+            } else if (state is WeatherLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is WeatherLoaded) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    state.weather.cityName,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Text(
+                    '${state.weather.temperature.round()}°',
+                    style: const TextStyle(fontSize: 150, height: 1.1),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '${state.weather.mainCondition} ',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        '${state.weather.maxTemp.round()}° / ${state.weather.minTemp.round()}°',
+                        style: const TextStyle(fontSize: 18),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          const Row(
+                            children: [
+                              Icon(Icons.calendar_today_outlined),
+                              Expanded(
+                                child: Text("Прогноз на 5 дней"),
+                              ),
+                              Text("Подробнее"),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            children: [
+                              const Expanded(
+                                child: Text("Сегодня"),
+                              ),
+                              const Expanded(
+                                  child: Icon(Icons.calendar_today_outlined)),
+                              Text(
+                                  '${state.weather.maxTemp.round()}° / ${state.weather.minTemp.round()}°',
+                                  style: const TextStyle(fontSize: 18))
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          TextButton(
+                            style: ButtonStyle(
+                                backgroundColor: WidgetStateProperty.all<Color>(
+                                    Colors.grey[300]!),
+                                minimumSize: WidgetStateProperty.all<Size>(
+                                  const Size(300, 50),
+                                )),
+                            onPressed: () {},
+                            child: const Text("Прогноз на 5 дней"),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            } else if (state is WeatherError) {
+              return Text(state.message);
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
