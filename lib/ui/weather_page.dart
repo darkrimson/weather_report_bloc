@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/weather_bloc.dart';
+import 'widgets/widgets.dart';
 
 class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
@@ -39,28 +40,17 @@ class WeatherPage extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    state.weather.location.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                  const SizedBox(height: 30),
+                  LocationText(
+                    text: state.weather.location.name,
                   ),
-                  Text(
-                    '${state.weather.current.tempC.round()}°',
-                    style: const TextStyle(fontSize: 150, height: 1.1),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        '${state.weather.current.condition} ',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        '${state.weather.forecast.forecastDay[0].day.maxTempC.round()}° / ${state.weather.forecast.forecastDay[0].day.minTempC.round()}°',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ],
+                  TempText(text: '${state.weather.current.tempC.round()}°'),
+                  ConditionTempsRow(
+                    conditionText: '${state.weather.current.condition.text} ',
+                    maxTempText:
+                        '${state.weather.forecast.forecastDay[0].day.maxTempC.round()}',
+                    minTempText:
+                        '${state.weather.forecast.forecastDay[0].day.minTempC.round()}',
                   ),
                   const SizedBox(height: 50),
                   Container(
@@ -72,39 +62,30 @@ class WeatherPage extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         children: [
-                          const Row(
-                            children: [
-                              Icon(Icons.calendar_today_outlined),
-                              Expanded(
-                                child: Text("Прогноз на 5 дней"),
-                              ),
-                              Text("Подробнее"),
-                            ],
-                          ),
+                          const HeaderForecastRow(),
                           const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              const Expanded(
-                                child: Text("Сегодня"),
-                              ),
-                              const Expanded(
-                                  child: Icon(Icons.calendar_today_outlined)),
-                              Text(
-                                  '${state.weather.forecast.forecastDay[0].day.maxTempC.round()}° / ${state.weather.forecast.forecastDay[0].day.minTempC.round()}°',
-                                  style: const TextStyle(fontSize: 18))
-                            ],
-                          ),
+                          ForecastDayRow(
+                              dayLabel: 'Сегодня',
+                              maxTemp: state
+                                  .weather.forecast.forecastDay[0].day.maxTempC,
+                              minTemp: state.weather.forecast.forecastDay[0].day
+                                  .minTempC),
+                          const SizedBox(height: 10),
+                          ForecastDayRow(
+                              dayLabel: 'Завтра',
+                              maxTemp: state
+                                  .weather.forecast.forecastDay[1].day.maxTempC,
+                              minTemp: state.weather.forecast.forecastDay[1].day
+                                  .minTempC),
+                          const SizedBox(height: 10),
+                          ForecastDayRow(
+                              dayLabel: 'Послезавтра',
+                              maxTemp: state
+                                  .weather.forecast.forecastDay[2].day.maxTempC,
+                              minTemp: state.weather.forecast.forecastDay[2].day
+                                  .minTempC),
                           const SizedBox(height: 20),
-                          TextButton(
-                            style: ButtonStyle(
-                                backgroundColor: WidgetStateProperty.all<Color>(
-                                    Colors.grey[300]!),
-                                minimumSize: WidgetStateProperty.all<Size>(
-                                  const Size(300, 50),
-                                )),
-                            onPressed: () {},
-                            child: const Text("Прогноз на 5 дней"),
-                          )
+                          const ForecastButton()
                         ],
                       ),
                     ),
