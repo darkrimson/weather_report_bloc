@@ -1,6 +1,7 @@
 // lib/views/weather_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_report_bloc/ui/widgets/app_bar.dart';
 import '../blocs/weather_bloc.dart';
 import 'widgets/widgets.dart';
 
@@ -10,24 +11,7 @@ class WeatherPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Погода'),
-        backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              context.read<WeatherBloc>().add(GetWeatherByLocationEvent());
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, '/settings');
-            },
-          ),
-        ],
-      ),
+      appBar: const AppBarWidget(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: BlocBuilder<WeatherBloc, WeatherState>(
@@ -46,11 +30,9 @@ class WeatherPage extends StatelessWidget {
                   ),
                   TempText(text: '${state.weather.current.tempC.round()}°'),
                   ConditionTempsRow(
-                    conditionText: '${state.weather.current.condition.text} ',
-                    maxTempText:
-                        '${state.weather.forecast.forecastDay[0].day.maxTempC.round()}',
-                    minTempText:
-                        '${state.weather.forecast.forecastDay[0].day.minTempC.round()}',
+                    condition: '${state.weather.current.condition.text} ',
+                    maxTemp: state.weather.forecast.forecastDay[0].day.maxTempC,
+                    minTemp: state.weather.forecast.forecastDay[0].day.minTempC,
                   ),
                   const SizedBox(height: 50),
                   Container(

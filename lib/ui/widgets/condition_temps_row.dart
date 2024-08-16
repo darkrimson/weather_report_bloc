@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ConditionTempsRow extends StatelessWidget {
-  final String conditionText;
-  final String maxTempText;
-  final String minTempText;
+  final String condition;
+  final double maxTemp;
+  final double minTemp;
   const ConditionTempsRow({
     super.key,
-    required this.conditionText,
-    required this.maxTempText,
-    required this.minTempText,
+    required this.condition,
+    required this.maxTemp,
+    required this.minTemp,
   });
 
   @override
@@ -16,11 +16,11 @@ class ConditionTempsRow extends StatelessWidget {
     return Row(
       children: [
         Text(
-          conditionText,
+          condition,
           style: const TextStyle(fontSize: 18),
         ),
         Text(
-          '$maxTempText° / $minTempText°',
+          '${maxTemp.round()}° / ${minTemp.round()}°',
           style: const TextStyle(fontSize: 18),
         ),
       ],
