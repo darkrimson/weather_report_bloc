@@ -5,11 +5,12 @@ import 'package:weather_report_bloc/blocs/weather_bloc.dart';
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({super.key});
   @override
-  Size get preferredSize => const Size.fromHeight(100);
+  Size get preferredSize => const Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      forceMaterialTransparency: true,
       title: const Text('Погода'),
       backgroundColor: Colors.transparent,
       actions: [

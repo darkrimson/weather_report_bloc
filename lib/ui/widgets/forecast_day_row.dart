@@ -4,13 +4,15 @@ class ForecastDayRow extends StatelessWidget {
   final String dayLabel;
   final double maxTemp;
   final double minTemp;
+  final String iconUrl;
 
   const ForecastDayRow({
-    Key? key,
+    super.key,
     required this.dayLabel,
     required this.maxTemp,
     required this.minTemp,
-  }) : super(key: key);
+    required this.iconUrl,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,8 @@ class ForecastDayRow extends StatelessWidget {
         Expanded(
           child: Text(dayLabel),
         ),
-        const Expanded(
-          child: Icon(Icons.calendar_today_outlined),
+        Expanded(
+          child: Image.network('https:$iconUrl', width: 40, height: 40),
         ),
         Text(
           '${maxTemp.round()}° / ${minTemp.round()}°',

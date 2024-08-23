@@ -1,12 +1,13 @@
+import 'package:weather_report_bloc/models/condition.dart';
+
 class Hour {
   final String time;
   final double tempC;
-  final String conditionText;
-
+  final Condition condition;
   Hour({
     required this.time,
     required this.tempC,
-    required this.conditionText,
+    required this.condition,
   });
 
   factory Hour.fromJson(Map<String, dynamic> json) {
@@ -14,7 +15,7 @@ class Hour {
     return Hour(
       time: formattedTime,
       tempC: json['temp_c'],
-      conditionText: json['condition']['text'],
+      condition: Condition.fromJson(json['condition']),
     );
   }
 }

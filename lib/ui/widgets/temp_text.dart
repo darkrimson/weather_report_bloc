@@ -11,7 +11,11 @@ class TempText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 150, height: 1.1),
+      style: const TextStyle(
+        fontSize: 150,
+        height: 1,
+        color: Colors.white,
+      ),
     );
   }
 }

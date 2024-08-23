@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 
 class HeaderForecastRow extends StatelessWidget {
-  const HeaderForecastRow({
+  final String text;
+  final String description;
+  const HeaderForecastRow(
+    this.description, {
     super.key,
+    required this.text,
   });
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
-        Icon(Icons.calendar_today_outlined),
+        description.isNotEmpty
+            ? const Icon(Icons.calendar_today_outlined)
+            : const Icon(Icons.av_timer_rounded),
+        const SizedBox(width: 5),
         Expanded(
-          child: Text("Прогноз на 5 дней"),
+          child: Text(text),
         ),
-        Text("Подробнее"),
+        Text(description ?? ''),
+        description.isNotEmpty ? const Icon(Icons.chevron_right) : Container(),
       ],
     );
   }

@@ -13,7 +13,8 @@ class LocationText extends StatelessWidget {
       text,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 20,
+        fontSize: 24,
+        color: Colors.white,
       ),
     );
   }

@@ -17,11 +17,11 @@ class ConditionTempsRow extends StatelessWidget {
       children: [
         Text(
           condition,
-          style: const TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
         Text(
           '${maxTemp.round()}° / ${minTemp.round()}°',
-          style: const TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
       ],
     );
