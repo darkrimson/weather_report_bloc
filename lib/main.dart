@@ -17,6 +17,7 @@ class MainApp extends StatelessWidget {
       create: (context) =>
           WeatherBloc(WeatherRepository())..add(GetWeatherByLocationEvent()),
       child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: WeatherPage(),
       ),
     );

@@ -18,9 +18,12 @@ class HeaderForecastRow extends StatelessWidget {
             : const Icon(Icons.av_timer_rounded),
         const SizedBox(width: 5),
         Expanded(
-          child: Text(text),
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 16),
+          ),
         ),
-        Text(description ?? ''),
+        Text(description, style: const TextStyle(fontSize: 16)),
         description.isNotEmpty ? const Icon(Icons.chevron_right) : Container(),
       ],
     );
