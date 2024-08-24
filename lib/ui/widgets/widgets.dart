@@ -7,3 +7,5 @@ export 'forecast_day_row.dart';
 export 'hour_card.dart';
 export 'app_bar.dart';
 export 'background_image.dart';
+export 'forecast_details.dart';
+export 'hours_list.dart';

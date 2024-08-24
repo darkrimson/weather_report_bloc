@@ -18,13 +18,19 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       actions: [
         IconButton(
-          icon: const Icon(Icons.refresh),
+          icon: const Icon(
+            Icons.refresh,
+            color: Colors.white,
+          ),
           onPressed: () {
             context.read<WeatherBloc>().add(GetWeatherByLocationEvent());
           },
         ),
         IconButton(
-          icon: const Icon(Icons.settings),
+          icon: const Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
           onPressed: () {
             Navigator.pushNamed(context, '/settings');
           },
