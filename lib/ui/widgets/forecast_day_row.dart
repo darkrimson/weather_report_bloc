@@ -19,14 +19,17 @@ class ForecastDayRow extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Text(dayLabel),
+          child: Text(
+            dayLabel,
+            style: const TextStyle(fontSize: 18, color: Colors.white),
+          ),
         ),
         Expanded(
           child: Image.network('https:$iconUrl', width: 40, height: 40),
         ),
         Text(
           '${maxTemp.round()}° / ${minTemp.round()}°',
-          style: const TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18, color: Colors.white),
         ),
       ],
     );

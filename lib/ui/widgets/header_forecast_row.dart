@@ -14,17 +14,29 @@ class HeaderForecastRow extends StatelessWidget {
     return Row(
       children: [
         description.isNotEmpty
-            ? const Icon(Icons.calendar_today_outlined)
-            : const Icon(Icons.av_timer_rounded),
+            ? const Icon(
+                Icons.calendar_today_outlined,
+                color: Colors.white,
+              )
+            : const Icon(
+                Icons.av_timer_rounded,
+                color: Colors.white,
+              ),
         const SizedBox(width: 5),
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
-        Text(description, style: const TextStyle(fontSize: 16)),
-        description.isNotEmpty ? const Icon(Icons.chevron_right) : Container(),
+        Text(description,
+            style: const TextStyle(fontSize: 16, color: Colors.white)),
+        description.isNotEmpty
+            ? const Icon(
+                Icons.chevron_right,
+                color: Colors.white,
+              )
+            : Container(),
       ],
     );
   }

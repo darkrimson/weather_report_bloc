@@ -118,7 +118,7 @@ class _WeatherDetails extends StatelessWidget {
           minTemp: state.weather.forecast.forecastDay[0].day.minTempC,
         ),
         const SizedBox(height: 50),
-        HoursList(state),
+        _HoursList(state),
         const SizedBox(height: 15),
         _ForecastDetails(state),
       ],
@@ -135,7 +135,7 @@ class _ForecastDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: const Color.fromARGB(255, 44, 108, 160).withOpacity(0.2),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
@@ -173,16 +173,16 @@ class _ForecastDetails extends StatelessWidget {
   }
 }
 
-class HoursList extends StatelessWidget {
+class _HoursList extends StatelessWidget {
   final WeatherLoaded state;
-  const HoursList(this.state, {super.key});
+  const _HoursList(this.state, {super.key});
 
   @override
   Widget build(BuildContext context) {
     final hours = state.weather.forecast.forecastDay[0].hour;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: const Color.fromARGB(255, 44, 108, 160).withOpacity(0.2),
         borderRadius: BorderRadius.circular(10),
       ),
       height: 200,

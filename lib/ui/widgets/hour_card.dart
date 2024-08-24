@@ -15,19 +15,21 @@ class HourCard extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: Colors.black,
+            color: Colors.grey,
             width: 1,
           )),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             '${hour.tempC.round()}°',
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
           Image.network(
             'https:${hour.condition.icon}',
           ),
-          Text(hour.time, style: TextStyle(fontSize: 18)),
+          Text(hour.time,
+              style: const TextStyle(fontSize: 18, color: Colors.white)),
         ],
       ),
     );
