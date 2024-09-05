@@ -77,6 +77,7 @@ class _WeatherContent extends StatelessWidget {
       backgroundColor: Colors.transparent,
       appBar: AppBarWidget(
         title: appBarTitle,
+        scrollController: scrollController,
       ),
       body: SingleChildScrollView(
         controller: scrollController,
@@ -111,6 +112,7 @@ class _WeatherDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         LocationText(text: state.weather.location.name),
+        const SizedBox(height: 10),
         TempText(text: '${state.weather.current.tempC.round()}°'),
         ConditionTempsRow(
           condition: '${state.weather.current.condition.text} ',
@@ -118,9 +120,11 @@ class _WeatherDetails extends StatelessWidget {
           minTemp: state.weather.forecast.forecastDay[0].day.minTempC,
         ),
         const SizedBox(height: 50),
+        ForecastDetails(state),
+        const SizedBox(height: 15),
         HoursList(state),
         const SizedBox(height: 15),
-        ForecastDetails(state),
+        ForecastSummary(),
       ],
     );
   }

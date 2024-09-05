@@ -13,14 +13,16 @@ class ConditionTempsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           condition,
           style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
+        const SizedBox(height: 5),
         Text(
-          '${maxTemp.round()}° / ${minTemp.round()}°',
+          '${maxTemp.round()}° | ${minTemp.round()}°',
           style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
       ],

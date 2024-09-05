@@ -13,6 +13,7 @@ class BackgroundImage extends StatelessWidget {
       'cloud': 'assets/cloud.jpg',
       'snow': 'assets/snow.jpg',
       'mint': 'assets/mint.jpg',
+      'clear': 'assets/cloud.jpg',
     };
 
     final condition = state.weather.current.condition.text.toLowerCase();

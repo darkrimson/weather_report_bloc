@@ -21,7 +21,7 @@ class ForecastButton extends StatelessWidget {
           )),
       onPressed: () {},
       child: const Text(
-        "Прогноз на 5 дней",
+        "Прогноз на 3 дня",
         style: TextStyle(
             fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),

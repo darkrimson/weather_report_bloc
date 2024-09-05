@@ -22,14 +22,16 @@ class HourCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '${hour.tempC.round()}°',
+            hour.time,
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
           Image.network(
             'https:${hour.condition.icon}',
           ),
-          Text(hour.time,
-              style: const TextStyle(fontSize: 18, color: Colors.white)),
+          Text(
+            '${hour.tempC.round()}°',
+            style: const TextStyle(fontSize: 18, color: Colors.white),
+          ),
         ],
       ),
     );
