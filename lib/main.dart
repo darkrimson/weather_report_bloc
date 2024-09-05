@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:weather_report_bloc/blocs/weather_bloc.dart';
 import 'package:weather_report_bloc/repositories/weather_repository.dart';
 import 'package:weather_report_bloc/ui/weather_page.dart';
 
-void main() {
+Future<void> main() async {
+  await initializeDateFormatting('en', null);
   runApp(const MainApp());
 }
 

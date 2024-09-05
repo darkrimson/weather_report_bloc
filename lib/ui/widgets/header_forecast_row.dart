@@ -26,11 +26,15 @@ class HeaderForecastRow extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(fontSize: 16, color: Colors.white),
+            style: const TextStyle(
+                fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
         Text(description,
-            style: const TextStyle(fontSize: 16, color: Colors.white)),
+            style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+                fontWeight: FontWeight.bold)),
         description.isNotEmpty
             ? const Icon(
                 Icons.chevron_right,

@@ -6,7 +6,7 @@ import 'widgets.dart';
 class ForecastDetails extends StatelessWidget {
   final WeatherLoaded state;
 
-  const ForecastDetails(this.state, {super.key});
+  const ForecastDetails({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ForecastDetails extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            const HeaderForecastRow(text: "Прогноз на 3 дня", 'Подробнее'),
+            const HeaderForecastRow(text: "Forecast for 3 days", 'More'),
             const SizedBox(height: 20),
             ForecastDayRow(
               day: state.weather.forecast.forecastDay[0].day,

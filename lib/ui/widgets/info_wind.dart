@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:weather_report_bloc/models/current.dart';
 
 class InfoWind extends StatelessWidget {
-  const InfoWind({
-    super.key,
-  });
+  final Current current;
+  const InfoWind({super.key, required this.current});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 100,
-        width: 170,
+        width: 160,
         padding: const EdgeInsets.all(16.0),
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(
               Radius.circular(10.0),
             )),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
@@ -25,22 +24,22 @@ class InfoWind extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'North',
-                  style: TextStyle(
+                  current.windDir,
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  '18.7 km/h',
-                  style: TextStyle(
+                  '${current.windKph} km/h',
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            Icon(Icons.chevron_right),
+            const Icon(Icons.chevron_right),
           ],
         ),
       ),

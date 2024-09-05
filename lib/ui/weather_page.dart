@@ -120,11 +120,11 @@ class _WeatherDetails extends StatelessWidget {
           minTemp: state.weather.forecast.forecastDay[0].day.minTempC,
         ),
         const SizedBox(height: 50),
-        ForecastDetails(state),
+        ForecastDetails(state: state),
         const SizedBox(height: 15),
         HoursList(state),
         const SizedBox(height: 15),
-        ForecastSummary(),
+        ForecastSummary(state: state),
       ],
     );
   }

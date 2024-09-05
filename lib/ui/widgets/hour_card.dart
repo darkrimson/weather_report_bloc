@@ -22,7 +22,7 @@ class HourCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            hour.time,
+            hour.time as String,
             style: const TextStyle(fontSize: 18, color: Colors.white),
           ),
           Image.network(
