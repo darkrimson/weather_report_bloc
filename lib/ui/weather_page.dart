@@ -1,62 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_report_bloc/models/weather.dart';
 import '../blocs/weather_bloc.dart';
 import 'widgets/widgets.dart';
 
-class WeatherPage extends StatefulWidget {
+class WeatherPage extends StatelessWidget {
   const WeatherPage({super.key});
 
   @override
-  State<WeatherPage> createState() => _WeatherPageState();
-}
-
-class _WeatherPageState extends State<WeatherPage> {
-  late ScrollController _scrollController;
-  String _appBarTitle = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController()
-      ..addListener(() {
-        final offset = _scrollController.offset;
-        if (offset > 200) {
-          final newTitle = BlocProvider.of<WeatherBloc>(context).state
-                  is WeatherLoaded
-              ? (BlocProvider.of<WeatherBloc>(context).state as WeatherLoaded)
-                  .weather
-                  .location
-                  .name
-              : '';
-          if (_appBarTitle != newTitle) {
-            setState(() {
-              _appBarTitle = newTitle;
-            });
-          }
-        } else {
-          if (_appBarTitle != '') {
-            setState(() {
-              _appBarTitle = '';
-            });
-          }
-        }
-      });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Stack(
         children: [
-          const BackgroundImage(),
-          _WeatherContent(
-              scrollController: _scrollController, appBarTitle: _appBarTitle),
+          BackgroundImage(),
+          _WeatherContent(),
         ],
       ),
     );
@@ -64,67 +21,65 @@ class _WeatherPageState extends State<WeatherPage> {
 }
 
 class _WeatherContent extends StatelessWidget {
-  final ScrollController scrollController;
-  final String appBarTitle;
-
-  const _WeatherContent({
-    required this.scrollController,
-    required this.appBarTitle,
-  });
+  const _WeatherContent();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBarWidget(
-        title: appBarTitle,
-        scrollController: scrollController,
-      ),
-      body: SingleChildScrollView(
-        controller: scrollController,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: BlocBuilder<WeatherBloc, WeatherState>(
-            builder: (context, state) {
-              if (state is WeatherLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is WeatherLoaded) {
-                return _WeatherDetails(state);
-              } else if (state is WeatherError) {
-                return Text(state.message);
-              }
-              return Container();
+    return BlocBuilder<WeatherBloc, WeatherState>(
+      builder: (context, state) {
+        if (state is WeatherLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is WeatherLoaded) {
+          return PageView.builder(
+            itemCount: state.weathers.length,
+            itemBuilder: (context, index) {
+              final weather = state.weathers[index];
+              return Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: AppBarWidget(
+                  title: weather.location.name,
+                ),
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: _WeatherDetails(
+                      weather: weather,
+                    ),
+                  ),
+                ),
+              );
             },
-          ),
-        ),
-      ),
+          );
+        } else if (state is WeatherError) {
+          return Text(state.message);
+        }
+        return Container();
+      },
     );
   }
 }
 
 class _WeatherDetails extends StatelessWidget {
-  final WeatherLoaded state;
+  final Weather weather;
 
-  const _WeatherDetails(this.state);
+  const _WeatherDetails({required this.weather});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        LocationText(text: state.weather.location.name),
-        const SizedBox(height: 10),
-        TempText(text: '${state.weather.current.tempC.round()}°'),
+        TempText(text: '${weather.current.tempC.round()}°'),
         ConditionTempsRow(
-          condition: '${state.weather.current.condition.text} ',
-          maxTemp: state.weather.forecast.forecastDay[0].day.maxTempC,
-          minTemp: state.weather.forecast.forecastDay[0].day.minTempC,
+          day: weather.forecast.forecastDay[0].day,
         ),
-        const SizedBox(height: 50),
-        ForecastDetails(state: state),
+        const SizedBox(height: 30),
+        ForecastDetails(weather: weather),
         const SizedBox(height: 15),
-        HoursList(state),
+        HoursList(
+          weather: weather,
+        ),
         const SizedBox(height: 15),
-        ForecastSummary(state: state),
+        ForecastSummary(weather: weather),
       ],
     );
   }

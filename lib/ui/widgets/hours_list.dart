@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_report_bloc/blocs/weather_bloc.dart';
+import 'package:weather_report_bloc/models/weather.dart';
 import 'package:weather_report_bloc/ui/widgets/widgets.dart';
 
 class HoursList extends StatelessWidget {
-  final WeatherLoaded state;
-  const HoursList(this.state, {super.key});
+  final Weather weather;
+  const HoursList({required this.weather, super.key});
 
   @override
   Widget build(BuildContext context) {
-    final hours = state.weather.forecast.forecastDay[0].hour;
+    final hours = weather.forecast.forecastDay[0].hour;
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 44, 108, 160).withOpacity(0.2),

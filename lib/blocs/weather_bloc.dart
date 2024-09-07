@@ -13,12 +13,19 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     on<GetWeatherByLocationEvent>(_getWeatherByLocation);
   }
 
+  List<Weather> citiesWeather = [];
+
   Future<void> _getWeather(
       GetWeatherEvent event, Emitter<WeatherState> emit) async {
     emit(WeatherLoading());
     try {
       final weather = await weatherRepository.fetchWeather(event.cityName);
-      emit(WeatherLoaded(weather));
+      if (citiesWeather.contains(weather)) {
+        emit(WeatherLoaded(citiesWeather));
+        return;
+      }
+      citiesWeather.add(weather);
+      emit(WeatherLoaded(citiesWeather));
     } catch (e) {
       emit(WeatherError(e.toString()));
     }
@@ -29,7 +36,13 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     emit(WeatherLoading());
     try {
       final weather = await weatherRepository.fetchWeatherByLocation();
-      emit(WeatherLoaded(weather));
+      if (citiesWeather.contains(weather)) {
+        emit(WeatherLoaded(citiesWeather));
+        return;
+      }
+      citiesWeather.add(weather);
+      citiesWeather.add(weather);
+      emit(WeatherLoaded(citiesWeather));
     } catch (e) {
       emit(WeatherError(e.toString()));
     }

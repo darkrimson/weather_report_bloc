@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:weather_report_bloc/blocs/weather_bloc.dart';
+import 'package:weather_report_bloc/models/weather.dart';
 
 import 'widgets.dart';
 
 class ForecastDetails extends StatelessWidget {
-  final WeatherLoaded state;
+  final Weather weather;
 
-  const ForecastDetails({super.key, required this.state});
+  const ForecastDetails({super.key, required this.weather});
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +22,18 @@ class ForecastDetails extends StatelessWidget {
             const HeaderForecastRow(text: "Forecast for 3 days", 'More'),
             const SizedBox(height: 20),
             ForecastDayRow(
-              day: state.weather.forecast.forecastDay[0].day,
-              date: state.weather.forecast.forecastDay[0].date,
+              day: weather.forecast.forecastDay[0].day,
+              date: weather.forecast.forecastDay[0].date,
             ),
             const SizedBox(height: 10),
             ForecastDayRow(
-              day: state.weather.forecast.forecastDay[1].day,
-              date: state.weather.forecast.forecastDay[1].date,
+              day: weather.forecast.forecastDay[1].day,
+              date: weather.forecast.forecastDay[1].date,
             ),
             const SizedBox(height: 10),
             ForecastDayRow(
-              day: state.weather.forecast.forecastDay[2].day,
-              date: state.weather.forecast.forecastDay[2].date,
+              day: weather.forecast.forecastDay[2].day,
+              date: weather.forecast.forecastDay[2].date,
             ),
             const SizedBox(height: 20),
             const ForecastButton(),

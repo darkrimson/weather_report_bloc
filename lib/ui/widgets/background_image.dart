@@ -16,7 +16,7 @@ class BackgroundImage extends StatelessWidget {
       'clear': 'assets/cloud.jpg',
     };
 
-    final condition = state.weather.current.condition.text.toLowerCase();
+    final condition = state.weathers[0].current.condition.text.toLowerCase();
 
     // Поиск первого совпадения ключевого слова в условии
     final matchedKeyword = keywordToImage.keys.firstWhere(

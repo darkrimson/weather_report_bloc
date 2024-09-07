@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:weather_report_bloc/models/day.dart';
 
 class ConditionTempsRow extends StatelessWidget {
-  final String condition;
-  final double maxTemp;
-  final double minTemp;
+  final Day day;
   const ConditionTempsRow({
     super.key,
-    required this.condition,
-    required this.maxTemp,
-    required this.minTemp,
+    required this.day,
   });
 
   @override
@@ -17,12 +14,12 @@ class ConditionTempsRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          condition,
+          day.condition.text,
           style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
         const SizedBox(height: 5),
         Text(
-          '${maxTemp.round()}° | ${minTemp.round()}°',
+          '${day.maxTempC.round()}° | ${day.minTempC.round()}°',
           style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
       ],

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:weather_report_bloc/blocs/weather_bloc.dart';
+import 'package:weather_report_bloc/models/weather.dart';
 
 import 'widgets.dart';
 
 class ForecastSummary extends StatelessWidget {
-  final WeatherLoaded state;
+  final Weather weather;
 
   const ForecastSummary({
     super.key,
-    required this.state,
+    required this.weather,
   });
 
   @override
@@ -21,18 +21,18 @@ class ForecastSummary extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InfoWind(
-                current: state.weather.current,
+                current: weather.current,
               ),
               const SizedBox(height: 10),
-              InfoSun(astro: state.weather.forecast.forecastDay[0].astro),
+              InfoSun(astro: weather.forecast.forecastDay[0].astro),
             ],
           ),
           const SizedBox(
             width: 10,
           ),
           DetailsColumn(
-            current: state.weather.current,
-            day: state.weather.forecast.forecastDay[0].day,
+            current: weather.current,
+            day: weather.forecast.forecastDay[0].day,
           ),
         ],
       ),
