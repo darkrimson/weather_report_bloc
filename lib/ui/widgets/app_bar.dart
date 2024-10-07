@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_report_bloc/blocs/weather_bloc.dart';
+import 'package:weather_report_bloc/ui/pages/add_city_page.dart';
 
 import 'widgets.dart';
 
@@ -39,6 +40,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             Navigator.pushNamed(context, '/settings');
           },
         ),
+        IconButton(
+            icon: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AddCityPage()));
+            })
       ],
     );
   }

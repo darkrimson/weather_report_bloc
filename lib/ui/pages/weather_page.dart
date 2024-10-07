@@ -1,19 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_report_bloc/models/weather.dart';
-import '../blocs/weather_bloc.dart';
-import 'widgets/widgets.dart';
+import '../../blocs/weather_bloc.dart';
+import '../widgets/widgets.dart';
 
-class WeatherPage extends StatelessWidget {
+class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
 
   @override
+  State<WeatherPage> createState() => _WeatherPageState();
+}
+
+class _WeatherPageState extends State<WeatherPage> {
+  late PageController _pageController;
+  int _currentPageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Stack(
         children: [
-          BackgroundImage(),
-          _WeatherContent(),
+          BlocBuilder<WeatherBloc, WeatherState>(
+            builder: (context, state) {
+              if (state is WeatherLoaded) {
+                return BackgroundImage(pageIndex: _currentPageIndex);
+              }
+              return const SizedBox
+                  .shrink(); // пустой контейнер, если погода не загружена
+            },
+          ),
+          _WeatherContent(
+            pageController: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPageIndex = index;
+              });
+            },
+          ),
         ],
       ),
     );
@@ -21,7 +56,14 @@ class WeatherPage extends StatelessWidget {
 }
 
 class _WeatherContent extends StatelessWidget {
-  const _WeatherContent();
+  final PageController pageController;
+  final ValueChanged<int> onPageChanged;
+
+  const _WeatherContent({
+    required this.pageController,
+    required this.onPageChanged,
+  });
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherBloc, WeatherState>(
@@ -30,7 +72,9 @@ class _WeatherContent extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         } else if (state is WeatherLoaded) {
           return PageView.builder(
+            controller: pageController,
             itemCount: state.weathers.length,
+            onPageChanged: onPageChanged,
             itemBuilder: (context, index) {
               final weather = state.weathers[index];
               return Scaffold(
@@ -50,7 +94,7 @@ class _WeatherContent extends StatelessWidget {
             },
           );
         } else if (state is WeatherError) {
-          return Text(state.message);
+          return Center(child: Text(state.message));
         }
         return Container();
       },
@@ -68,6 +112,7 @@ class _WeatherDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 20),
         TempText(text: '${weather.current.tempC.round()}°'),
         ConditionTempsRow(
           day: weather.forecast.forecastDay[0].day,

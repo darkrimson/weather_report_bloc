@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_report_bloc/blocs/weather_bloc.dart';
 
 class BackgroundImage extends StatelessWidget {
-  const BackgroundImage({super.key});
+  final int pageIndex;
 
-  String _getBackgroundImage(WeatherLoaded state) {
+  const BackgroundImage({required this.pageIndex, super.key});
+
+  String _getBackgroundImage(WeatherLoaded state, int pageIndex) {
     final keywordToImage = {
       'night': 'assets/night.jpg',
       'sunny': 'assets/sunny.jpg',
@@ -16,7 +18,8 @@ class BackgroundImage extends StatelessWidget {
       'clear': 'assets/cloud.jpg',
     };
 
-    final condition = state.weathers[0].current.condition.text.toLowerCase();
+    final condition =
+        state.weathers[pageIndex].current.condition.text.toLowerCase();
 
     // Поиск первого совпадения ключевого слова в условии
     final matchedKeyword = keywordToImage.keys.firstWhere(
@@ -34,7 +37,7 @@ class BackgroundImage extends StatelessWidget {
         String backgroundImage = '';
 
         if (state is WeatherLoaded) {
-          backgroundImage = _getBackgroundImage(state);
+          backgroundImage = _getBackgroundImage(state, pageIndex);
         }
 
         return backgroundImage.isNotEmpty

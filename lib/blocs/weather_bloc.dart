@@ -41,7 +41,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         return;
       }
       citiesWeather.add(weather);
-      citiesWeather.add(weather);
       emit(WeatherLoaded(citiesWeather));
     } catch (e) {
       emit(WeatherError(e.toString()));
