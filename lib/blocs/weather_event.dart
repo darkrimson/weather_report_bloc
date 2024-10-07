@@ -20,3 +20,11 @@ class GetWeatherByLocationEvent extends WeatherEvent {
   @override
   List<Object> get props => [];
 }
+
+class DeleteWeatherEvent extends WeatherEvent {
+  final Weather weather;
+  const DeleteWeatherEvent(this.weather);
+
+  @override
+  List<Object> get props => [weather];
+}

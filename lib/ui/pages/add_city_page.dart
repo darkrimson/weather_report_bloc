@@ -114,7 +114,11 @@ class AddCityPage extends StatelessWidget {
                                   SlidableAction(
                                     borderRadius: BorderRadius.circular(10),
                                     onPressed: (context) {
-                                      // provider.deleteTask(task);
+                                      context
+                                          .read<WeatherBloc>()
+                                          .add(DeleteWeatherEvent(
+                                            cities[index],
+                                          ));
                                     },
                                     backgroundColor: Colors.red,
                                     icon: Icons.delete,
@@ -131,9 +135,7 @@ class AddCityPage extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Image.network(
-                                        'https:${weatherIcon}',
-                                        width: 50,
-                                        height: 50,
+                                        'https:$weatherIcon',
                                       ),
                                       const SizedBox(width: 10),
                                       // Информация о городе и погоде

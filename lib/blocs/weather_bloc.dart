@@ -11,6 +11,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc(this.weatherRepository) : super(WeatherInitial()) {
     on<GetWeatherEvent>(_getWeather);
     on<GetWeatherByLocationEvent>(_getWeatherByLocation);
+    on<DeleteWeatherEvent>(_deleteWeather);
   }
 
   List<Weather> citiesWeather = [];
@@ -41,6 +42,20 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         return;
       }
       citiesWeather.add(weather);
+      emit(WeatherLoaded(citiesWeather));
+    } catch (e) {
+      emit(WeatherError(e.toString()));
+    }
+  }
+
+  Future<void> _deleteWeather(
+      DeleteWeatherEvent event, Emitter<WeatherState> emit) async {
+    emit(WeatherLoading());
+    try {
+      if (citiesWeather.length <= 1) {
+      } else {
+        citiesWeather.remove(event.weather);
+      }
       emit(WeatherLoaded(citiesWeather));
     } catch (e) {
       emit(WeatherError(e.toString()));
