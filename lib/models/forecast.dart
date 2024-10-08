@@ -5,6 +5,12 @@ class Forecast {
 
   Forecast({required this.forecastDay});
 
+  Map<String, dynamic> toJson() {
+    return {
+      'forecastday': forecastDay,
+    };
+  }
+
   factory Forecast.fromJson(Map<String, dynamic> json) {
     final list = json['forecastday'] as List;
     List<ForecastDay> forecastList =

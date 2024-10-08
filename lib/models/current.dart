@@ -19,6 +19,18 @@ class Current {
     required this.windDir,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'temp_c': tempC,
+      'condition': condition.toJson(),
+      'feelslike_c': feelsLikeC,
+      'wind_kph': windKph,
+      'humidity': humidity,
+      'uv': uv,
+      'wind_dir': windDir,
+    };
+  }
+
   factory Current.fromJson(Map<String, dynamic> json) {
     return Current(
       tempC: json['temp_c'],

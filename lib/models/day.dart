@@ -13,6 +13,15 @@ class Day {
     required this.chanceOfRain,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'maxtemp_c': maxTempC,
+      'mintemp_c': minTempC,
+      'condition': condition.toJson(),
+      'daily_chance_of_rain': chanceOfRain,
+    };
+  }
+
   factory Day.fromJson(Map<String, dynamic> json) {
     return Day(
       maxTempC: json['maxtemp_c'],

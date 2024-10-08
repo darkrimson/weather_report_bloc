@@ -7,8 +7,8 @@ part 'weather_event.dart';
 part 'weather_state.dart';
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
-  final WeatherRepository weatherRepository;
-  WeatherBloc(this.weatherRepository) : super(WeatherInitial()) {
+  final weatherRepository = WeatherRepository();
+  WeatherBloc() : super(WeatherInitial()) {
     on<GetWeatherEvent>(_getWeather);
     on<GetWeatherByLocationEvent>(_getWeatherByLocation);
     on<DeleteWeatherEvent>(_deleteWeather);

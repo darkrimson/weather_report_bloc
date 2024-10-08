@@ -14,6 +14,15 @@ class ForecastDay {
       required this.hour,
       required this.astro});
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['date'] = date;
+    data['day'] = day.toJson();
+    data['hour'] = hour.map((v) => v.toJson()).toList();
+    data['astro'] = astro.toJson();
+    return data;
+  }
+
   factory ForecastDay.fromJson(Map<String, dynamic> json) {
     List<Hour> hours =
         (json['hour'] as List).map((i) => Hour.fromJson(i)).toList();

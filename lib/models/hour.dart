@@ -10,6 +10,14 @@ class Hour {
     required this.condition,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'time': time,
+      'temp_c': tempC,
+      'condition': condition.toJson(),
+    };
+  }
+
   factory Hour.fromJson(Map<String, dynamic> json) {
     String formattedTime = json['time'].split(' ')[1];
     return Hour(

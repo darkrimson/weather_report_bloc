@@ -4,6 +4,13 @@ class Condition {
 
   Condition({required this.text, required this.icon});
 
+  Map<String, dynamic> toJson() {
+    return {
+      'text': text,
+      'icon': icon,
+    };
+  }
+
   factory Condition.fromJson(Map<String, dynamic> json) {
     return Condition(
       text: json['text'],
