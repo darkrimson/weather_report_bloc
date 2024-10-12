@@ -5,7 +5,7 @@ class GetLocation {
   Future<String> getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      return Future.error('GPS выключен');
     }
 
     LocationPermission permission = await Geolocator.checkPermission();

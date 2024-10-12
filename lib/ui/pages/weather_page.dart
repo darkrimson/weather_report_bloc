@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:weather_report_bloc/models/weather.dart';
 import '../../blocs/weather_bloc.dart';
 import '../widgets/widgets.dart';
@@ -30,6 +31,7 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade200,
       body: Stack(
         children: [
           BlocBuilder<WeatherBloc, WeatherState>(
@@ -69,7 +71,9 @@ class _WeatherContent extends StatelessWidget {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
         if (state is WeatherLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+              child: Image.asset('assets/icons/animate.gif',
+                  width: 100, height: 100));
         } else if (state is WeatherLoaded) {
           return PageView.builder(
             controller: pageController,
@@ -86,7 +90,9 @@ class _WeatherContent extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: _WeatherDetails(
+                      state: state,
                       weather: weather,
+                      pageController: pageController,
                     ),
                   ),
                 ),
@@ -94,7 +100,7 @@ class _WeatherContent extends StatelessWidget {
             },
           );
         } else if (state is WeatherError) {
-          return Center(child: Text(state.message));
+          return _errorPage(state, context);
         }
         return Container();
       },
@@ -104,14 +110,23 @@ class _WeatherContent extends StatelessWidget {
 
 class _WeatherDetails extends StatelessWidget {
   final Weather weather;
+  final PageController pageController;
+  final WeatherLoaded state;
 
-  const _WeatherDetails({required this.weather});
+  const _WeatherDetails(
+      {required this.weather,
+      required this.pageController,
+      required this.state});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SmoothPageIndicator(
+          controller: pageController,
+          count: state.weathers.length,
+        ),
         const SizedBox(height: 20),
         TempText(text: '${weather.current.tempC.round()}°'),
         ConditionTempsRow(
@@ -129,4 +144,40 @@ class _WeatherDetails extends StatelessWidget {
       ],
     );
   }
+}
+
+Center _errorPage(WeatherError state, BuildContext context) {
+  return Center(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.asset(
+            'assets/icons/error.webp',
+            width: 200,
+            height: 200,
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(state.message,
+            style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+                fontWeight: FontWeight.bold)),
+        const Text('Проверьте интернет и GPS',
+            style: TextStyle(fontSize: 18, color: Colors.black)),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: () {
+            context.read<WeatherBloc>().add(GetWeatherByLocationEvent());
+          },
+          child: const Text(
+            'Повторить',
+            style: TextStyle(fontSize: 16, color: Colors.black),
+          ),
+        ),
+      ],
+    ),
+  );
 }

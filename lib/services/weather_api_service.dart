@@ -26,7 +26,7 @@ class WeatherApiService {
     final city = await GetLocation().getCurrentLocation();
     try {
       final response = await _dio.get('forecast.json', queryParameters: {
-        'q': 'Grozny',
+        'q': city,
       });
       print(response.statusCode);
       if (response.statusCode == 200) {

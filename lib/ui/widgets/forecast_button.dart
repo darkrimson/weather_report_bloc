@@ -43,7 +43,7 @@ class ForecastButton extends StatelessWidget {
         _modalBottomSheet(context, date);
       },
       child: const Text(
-        "Прогноз на 3 дня",
+        "Прогноз на 2 дня",
         style: TextStyle(
             fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),
