@@ -17,7 +17,7 @@ class DetailsColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10.0),
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(

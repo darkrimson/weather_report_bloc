@@ -52,7 +52,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       DeleteWeatherEvent event, Emitter<WeatherState> emit) async {
     emit(WeatherLoading());
     try {
-      if (citiesWeather.length <= 1) {
+      if (citiesWeather.length > 1) {
       } else {
         citiesWeather.remove(event.weather);
       }

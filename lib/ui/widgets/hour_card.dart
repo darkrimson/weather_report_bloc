@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:weather_report_bloc/models/hour.dart';
 
 class HourCard extends StatelessWidget {
+  final Color color;
   const HourCard({
     super.key,
     required this.hour,
+    required this.color,
   });
 
   final Hour hour;
@@ -22,15 +24,15 @@ class HourCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            hour.time as String,
-            style: const TextStyle(fontSize: 18, color: Colors.white),
+            hour.time,
+            style: TextStyle(fontSize: 18, color: color),
           ),
           Image.network(
             'https:${hour.condition.icon}',
           ),
           Text(
             '${hour.tempC.round()}°',
-            style: const TextStyle(fontSize: 18, color: Colors.white),
+            style: TextStyle(fontSize: 18, color: color),
           ),
         ],
       ),

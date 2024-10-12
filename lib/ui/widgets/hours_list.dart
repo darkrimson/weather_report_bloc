@@ -71,7 +71,10 @@ class HoursList extends StatelessWidget {
                   var hour = filteredHours[index];
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: HourCard(hour: hour),
+                    child: HourCard(
+                      hour: hour,
+                      color: Colors.white,
+                    ),
                   );
                 },
               ),

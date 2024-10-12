@@ -112,7 +112,7 @@ class _WeatherDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         TempText(text: '${weather.current.tempC.round()}°'),
         ConditionTempsRow(
           day: weather.forecast.forecastDay[0].day,
@@ -125,6 +125,7 @@ class _WeatherDetails extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         ForecastSummary(weather: weather),
+        const SizedBox(height: 15)
       ],
     );
   }

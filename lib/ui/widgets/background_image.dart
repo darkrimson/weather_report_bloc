@@ -9,13 +9,14 @@ class BackgroundImage extends StatelessWidget {
 
   String _getBackgroundImage(WeatherLoaded state, int pageIndex) {
     final keywordToImage = {
-      'night': 'assets/night.jpg',
-      'sunny': 'assets/sunny.jpg',
-      'rain': 'assets/rain.jpg',
-      'cloud': 'assets/cloud.jpg',
-      'snow': 'assets/snow.jpg',
-      'mint': 'assets/mint.jpg',
-      'clear': 'assets/cloud.jpg',
+      'night': 'assets/images/night.jpg',
+      'sunny': 'assets/images/sunny.jpg',
+      'rain': 'assets/images/rain.jpg',
+      'cloud': 'assets/images/cloud.jpg',
+      'overcast': 'assets/images/cloud.jpg',
+      'snow': 'assets/images/snow.jpg',
+      'mint': 'assets/images/mint.jpg',
+      'clear': 'assets/images/cloud.jpg',
     };
 
     final condition =

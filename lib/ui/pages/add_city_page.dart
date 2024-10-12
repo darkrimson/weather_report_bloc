@@ -136,6 +136,7 @@ class AddCityPage extends StatelessWidget {
                                     children: [
                                       Image.network(
                                         'https:$weatherIcon',
+                                        fit: BoxFit.fill,
                                       ),
                                       const SizedBox(width: 10),
                                       // Информация о городе и погоде

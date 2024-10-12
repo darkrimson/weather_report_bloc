@@ -36,7 +36,9 @@ class ForecastDetails extends StatelessWidget {
               date: weather.forecast.forecastDay[2].date,
             ),
             const SizedBox(height: 20),
-            const ForecastButton(),
+            ForecastButton(
+              weather: weather,
+            ),
           ],
         ),
       ),
